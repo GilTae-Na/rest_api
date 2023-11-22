@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Transactional
 @ActiveProfiles("test")
-class MemberControllerTest {
+class ApiV1MemberControllerTest {
     @Autowired
     private MockMvc mvc;
 
@@ -36,7 +36,7 @@ class MemberControllerTest {
         // When
         ResultActions resultActions = mvc
                 .perform(
-                        post("/member/login")
+                        post("/api/v1/member/login")
                                 .content("""
                                         {
                                             "username": "user1",
