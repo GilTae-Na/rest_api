@@ -11,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.ALL_VALUE;
@@ -55,8 +57,8 @@ public class ApiV1MemberController {
 
     // consumes = ALL_VALUE => 나는 딱히 JSON 을 입력받기를 고집하지 않겠다.
     @GetMapping(value = "/me", consumes = ALL_VALUE)
-    public RsData<MeResponse> me() {
-        Member member = memberService.findByUsername("user1").get();
+    public RsData<MeResponse> me(@AuthenticationPrincipal User user) {
+        Member member = memberService.findByUsername(user.getUsername()).get();
 
         return RsData.of(
                 "S-1",
