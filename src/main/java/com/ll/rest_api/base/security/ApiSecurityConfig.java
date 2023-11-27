@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,9 +34,9 @@ public class ApiSecurityConfig {
                 )
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests
-                                .requestMatchers("/api/*/member/login").permitAll()
-                                .requestMatchers("/api/*/articles").permitAll()
-                                .requestMatchers("/api/*/articles/*").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/*/member/login").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/*/articles").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/*/articles/*").permitAll()
                                 //로그인,articles 은 누구나 가능
                                 .anyRequest().authenticated()
                                 //나머지는 인증된 사용자만
